@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Salários Consolidados</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 30px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</h:head>
+<h:body>
+    <h2>Pessoas e Salários Consolidados</h2>
+    <div style="text-align:center">
+    	<p:linkButton href="form_pessoa.jsf" value="Cadastrar Pessoa"  />
+    	<p:linkButton href="form_cargo.jsf" value="Cadastrar Cargo"  />
+    	<p:linkButton href="form_vencimento.jsf" value="Cadastrar Vencimento"  />
+    	<p:linkButton href="form_cargo_vencimento.jsf" value="Cadastrar Cargo Vencimento"  />
+    </div>
+   	<h:commandButton value="Calcular" action="pessoaSalarioConsolidadoMBean.calcular"></h:commandButton>
+    <h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item" styleClass="tabela">
+
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{item.pessoa.id}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Nome</f:facet>
+            #{item.pessoa.nome}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Cargo</f:facet>
+            #{item.cargo.nome}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Salário</f:facet>
+            R$ #{item.salario}
+        </h:column>
+
+    </h:dataTable>
+</h:body>
+</html>
+
