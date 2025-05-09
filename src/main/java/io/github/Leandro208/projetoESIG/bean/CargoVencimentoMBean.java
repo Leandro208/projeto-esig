@@ -1,17 +1,16 @@
 package io.github.Leandro208.projetoESIG.bean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import io.github.Leandro208.projetoESIG.entities.Cargo;
 import io.github.Leandro208.projetoESIG.entities.CargoVencimento;
-import io.github.Leandro208.projetoESIG.entities.Vencimento;
+import io.github.Leandro208.projetoESIG.negocio.ListaComando;
+import io.github.Leandro208.projetoESIG.negocio.Operacao;
+import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;
 import io.github.Leandro208.projetoESIG.services.CargoService;
-import io.github.Leandro208.projetoESIG.services.CargoVencimentoService;
 import io.github.Leandro208.projetoESIG.services.VencimentoService;
 
 @ManagedBean
@@ -19,40 +18,41 @@ import io.github.Leandro208.projetoESIG.services.VencimentoService;
 public class CargoVencimentoMBean extends AbstractMBean {
 
 	private CargoVencimento cargoVencimento;
-	
-	private CargoVencimentoService service;
-	
+	private final String FORM_CARGO_VENCIMENTO = "form_cargo_vencimento";
 	public CargoVencimentoMBean() {
+		reset();
+	}
+	private void reset() {
 		cargoVencimento = new CargoVencimento();
-		service = new CargoVencimentoService();
+	}
+	
+	public String entrarCadastro() {
+		reset();
+		return navegar(FORM_CARGO_VENCIMENTO);
 	}
 	
 	public String salvar() {
-		service.salvar(cargoVencimento);
-		cargoVencimento = new CargoVencimento();
-		return navegar("form_cargo_vencimento");
+		Operacao operacao = new OperacaoCadastro();
+		operacao.setComando(ListaComando.CADASTRAR);
+		operacao.setEntidade(cargoVencimento);
+		try {
+			realizarOperacao(operacao);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		addMensagem("Operação realizada com sucesso!");
+		reset();
+		return navegar(FORM_CARGO_VENCIMENTO);
 	}
 	
 	public List<SelectItem> getComboCargos() {
 		CargoService cargoService = new CargoService();
-		List<SelectItem> itensComboBoxCargos = new ArrayList<>();
-		List<Cargo> cargos = cargoService.buscarTodos();
-		for (Cargo c : cargos) {
-			itensComboBoxCargos.add(new SelectItem(c, c.getNome(), null));
-
-		}
-		return itensComboBoxCargos;
+		return cargoService.getComboCargos(cargoVencimento.getCargo());
 	}
 	
 	public List<SelectItem> getComboVencimentos() {
 		VencimentoService vencimentoService = new VencimentoService();
-		List<SelectItem> itensComboBoxVencimentos = new ArrayList<>();
-		List<Vencimento> vencimentos = vencimentoService.buscarTodos();
-		for (Vencimento v : vencimentos) {
-			itensComboBoxVencimentos.add(new SelectItem(v, v.getDescricao(), null));
-
-		}
-		return itensComboBoxVencimentos;
+		return vencimentoService.getComboVencimentos(cargoVencimento.getVencimento());
 	}
 
 	public CargoVencimento getCargoVencimento() {

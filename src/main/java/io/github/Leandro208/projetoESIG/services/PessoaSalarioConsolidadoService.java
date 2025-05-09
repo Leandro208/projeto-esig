@@ -1,39 +1,47 @@
 package io.github.Leandro208.projetoESIG.services;
 
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 
-import io.github.Leandro208.projetoESIG.dao.GenericDao;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import io.github.Leandro208.projetoESIG.dao.PessoaSalarioConsolidadoDao;
+import io.github.Leandro208.projetoESIG.dto.RelatorioPessoaSalarioDTO;
 import io.github.Leandro208.projetoESIG.entities.PessoaSalarioConsolidado;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class PessoaSalarioConsolidadoService {
 
-	private GenericDao<PessoaSalarioConsolidado> dao;
-
-	public PessoaSalarioConsolidadoService() {
-		dao = new GenericDao<PessoaSalarioConsolidado>();
+	public void calcular() {
+		PessoaSalarioConsolidadoDao dao = new PessoaSalarioConsolidadoDao();
+		dao.resetCalculoSalario();
+		dao.recalcularSalario();
 	}
 
-	public void calcular() {
-		String sql = "DELETE FROM pessoa_salario_consolidado";
-		dao.executeUpdate(sql);
-		
-		 sql = "INSERT INTO pessoa_salario_consolidado (id_pessoa, id_cargo, salario) ";
-		    sql += "SELECT p.id_pessoa, c.id_cargo, ";
-		    sql += " SUM(CASE ";
-		    sql += " WHEN v.tipo = 'CREDITO' THEN v.valor ";
-		    sql += " WHEN v.tipo = 'DEBITO' THEN -v.valor ";
-		    sql += " ELSE 0 ";
-		    sql += " END) ";
-		    sql += "FROM pessoa p ";
-		    sql += "JOIN cargo c ON p.id_cargo = c.id_cargo ";
-		    sql += "JOIN cargo_vencimento cv ON c.id_cargo = cv.id_cargo ";
-		    sql += "JOIN vencimento v ON cv.id_vencimento = v.id_vencimento ";
-		    sql += "GROUP BY p.id_pessoa, c.id_cargo"; 
-
-		dao.executeUpdate(sql);
+	public List<PessoaSalarioConsolidado> buscarTodos() {
+		PessoaSalarioConsolidadoDao dao = new PessoaSalarioConsolidadoDao();
+		return dao.buscarTodos();
 	}
 	
-	public List<PessoaSalarioConsolidado> buscarTodos(){
-		return dao.buscarTodos("select p from PessoaSalarioConsolidado p order by p.pessoa.nome");
+	public void gerarRelatorioSalario(List<RelatorioPessoaSalarioDTO> dados, HttpServletResponse response) throws Exception {
+		InputStream relatorioStream = getClass().getResourceAsStream("/relatorio/relatorio_pessoas.jasper");
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(
+			relatorioStream,
+			new HashMap<>(),
+			new JRBeanCollectionDataSource(dados)
+		);
+
+		response.setContentType("application/pdf");
+		response.setHeader("Content-disposition", "attachment; filename=relatorio-salario.pdf");
+
+		try (ServletOutputStream out = response.getOutputStream()) {
+			JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+		}
 	}
 }

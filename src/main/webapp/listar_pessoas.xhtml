@@ -4,7 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <title>Salários Consolidados</title>
+    <title>Visualizar Pessoas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,34 +74,11 @@
 </h:head>
 
 <h:body>
-    <h2>Pessoas e Salários Consolidados</h2>
-    
-    <h:form>
-        <p:menubar>
-            <p:submenu label="Pessoas">
-            	<p:menuitem value="Cadastrar Pessoa" action="#{pessoaMBean.entrarCadastro}" />
-                <p:menuitem value="Listar/Alterar Pessoas" action="#{pessoaMBean.entrarListagemPessoas}" />
-			</p:submenu>
-            <p:submenu label="Relatórios">
-                <p:menuitem value="Relatório de Pessoas" action="#{pessoaMBean.entrarListagemPessoas}" />
-            </p:submenu>
-            
-            <p:menuitem value="Cadastrar Cargo" action="#{cargoMBean.entrarCadastro}" />
-            <p:menuitem value="Cadastrar Vencimento" action="#{vencimentoMBean.entrarCadastro}" />
-            <p:menuitem value="Cadastrar Cargo Vencimento" action="#{cargoVencimentoMBean.entrarCadastro}" />
-            
-        </p:menubar>
-    </h:form>
-    
+    <h2>Gerenciar Pessoas</h2>
 
-    <h:form>
-        <div class="form-buttons">
-            <h:commandButton value="Calcular" action="#{pessoaSalarioConsolidadoMBean.calcular}">
-                <f:ajax render="pessoaSalarioConsolidadoTable"/>
-            </h:commandButton>
-            <h:commandButton value="Baixar Relatório PDF" action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" />
-        </div>
-    </h:form>
+    <div class="button-container">
+        <p:linkButton href="form_pessoa.jsf" value="Cadastrar Pessoa" styleClass="ui-button-info"/>
+    </div>
 
     <h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
                  styleClass="tabela" id="pessoaSalarioConsolidadoTable">

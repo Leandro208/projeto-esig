@@ -4,45 +4,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import io.github.Leandro208.projetoESIG.dao.GenericDao;
-import io.github.Leandro208.projetoESIG.entities.Cargo;
 import io.github.Leandro208.projetoESIG.entities.Pessoa;
+import io.github.Leandro208.projetoESIG.negocio.ListaComando;
+import io.github.Leandro208.projetoESIG.negocio.Operacao;
+import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;
 import io.github.Leandro208.projetoESIG.services.CargoService;
+import io.github.Leandro208.projetoESIG.services.PessoaService;
 
 @ManagedBean
-@ViewScoped
-public class PessoaMBean extends AbstractMBean{
+@SessionScoped
+public class PessoaMBean extends AbstractMBean {
 
+	private final String FORM_PESSOA = "form_pessoa";
+	private final String CONSULTA_PESSOA = "listar_pessoas";
 	private Pessoa pessoa;
-	private GenericDao<Pessoa> dao;
 	
+
+	private List<Pessoa> resultados;
+
 	public PessoaMBean() {
-		dao = new GenericDao<Pessoa>();
+		reset();
+	}
+
+	private void reset() {
+		resultados = new ArrayList<Pessoa>();
 		pessoa = new Pessoa();
 	}
-	
+
+	public String entrarCadastro() {
+		reset();
+		return navegar(FORM_PESSOA);
+	}
+
 	public String salvar() {
-		dao.salvar(pessoa);
-		pessoa = new Pessoa();
-		return navegar("form_pessoa");
+		Operacao operacao = new OperacaoCadastro();
+		if (getConfirmButton().equals(BOTAO_CADASTRAR)) {
+			operacao.setComando(ListaComando.CADASTRO_PESSOA);
+		} else if (getConfirmButton().equals(BOTAO_ALTERAR)) {
+			operacao.setComando(ListaComando.ALTERAR_PESSOA);
+		}
+		operacao.setEntidade(pessoa);
+		try {
+			realizarOperacao(operacao);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		addMensagem("Operação realizada com sucesso!");
+		reset();
+		return navegar(FORM_PESSOA);
+	}
+
+	public String entrarListagemPessoas() {
+		PessoaService service = new PessoaService();
+		resultados = service.buscarTodos();
+		return navegar(CONSULTA_PESSOA);
 	}
 
 	public List<SelectItem> getComboCargos() {
 		CargoService cargoService = new CargoService();
-		List<SelectItem> itensComboBoxCargos = new ArrayList<>();
-		List<Cargo> cargos = cargoService.buscarTodos();
-		for (Cargo c : cargos) {
-			boolean isSelecionado = pessoa.getCargo() != null && pessoa.getCargo().getId() != null
-					&& pessoa.getCargo().equals(c);
-			itensComboBoxCargos.add(new SelectItem(c, c.getNome(), null, isSelecionado));
-
-		}
-		return itensComboBoxCargos;
+		return cargoService.getComboCargos(pessoa.getCargo());
 	}
-	
+
+	public List<Pessoa> getResultados() {
+		return resultados;
+	}
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
@@ -50,5 +79,5 @@ public class PessoaMBean extends AbstractMBean{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
-	
+
 }

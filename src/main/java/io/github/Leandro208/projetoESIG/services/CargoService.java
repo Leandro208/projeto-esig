@@ -1,36 +1,36 @@
 package io.github.Leandro208.projetoESIG.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import io.github.Leandro208.projetoESIG.dao.GenericDao;
+import javax.faces.model.SelectItem;
+
+import io.github.Leandro208.projetoESIG.dao.CargoDao;
+import io.github.Leandro208.projetoESIG.dao.DAOException;
 import io.github.Leandro208.projetoESIG.entities.Cargo;
 
-public class CargoService implements BaseService<Cargo>{
+public class CargoService {
 
-	private GenericDao<Cargo> dao;
-	
-	public CargoService() {
-		dao = new GenericDao<Cargo>();
+	public List<SelectItem> getComboCargos(Cargo cargo) {
+		CargoDao dao = new CargoDao();
+		List<SelectItem> itensComboBoxCargos = new ArrayList<>();
+		List<Cargo> cargos = dao.findAllCargos();
+		for (Cargo c : cargos) {
+			boolean isSelecionado = cargo != null && cargo.getId() != null && cargo.equals(c);
+			itensComboBoxCargos.add(new SelectItem(c, c.getNome(), null, isSelecionado));
+
+		}
+		return itensComboBoxCargos;
 	}
-	@Override
+
 	public Cargo buscarPorId(Long id) {
-		return dao.buscarPorId(Cargo.class, id);
+		CargoDao dao = new CargoDao();
+		Cargo cargo = new Cargo();
+		try {
+			cargo = dao.findById(id, Cargo.class);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		return cargo;
 	}
-
-	@Override
-	public void salvar(Cargo obj) {
-		dao.salvar(obj);
-	}
-
-	@Override
-	public void remover(Cargo obj) {
-		dao.remover(Cargo.class, obj.getId());
-	}
-	
-	public List<Cargo> buscarTodos(){
-		return dao.buscarTodos(Cargo.class);
-	}
-
 }

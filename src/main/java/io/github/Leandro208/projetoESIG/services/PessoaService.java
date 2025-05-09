@@ -1,28 +1,15 @@
 package io.github.Leandro208.projetoESIG.services;
 
-import io.github.Leandro208.projetoESIG.dao.GenericDao;
+import java.util.List;
+
+import io.github.Leandro208.projetoESIG.dao.PessoaDao;
 import io.github.Leandro208.projetoESIG.entities.Pessoa;
 
-public class PessoaService implements BaseService<Pessoa> {
-
-	private GenericDao<Pessoa> dao;
+public class PessoaService {
 	
-	public PessoaService() {
-		dao = new GenericDao<Pessoa>();
-	}
-	
-	@Override
-	public Pessoa buscarPorId(Long id) {
-		return dao.buscarPorId(Pessoa.class, id);
-	}
-	
-	@Override
-	public void salvar(Pessoa obj) {
-		dao.salvar(obj);
+	public List<Pessoa> buscarTodos(){
+		PessoaDao dao = new PessoaDao();
+		return dao.findAllPessoa();
 	}
 
-	@Override
-	public void remover(Pessoa obj) {
-		dao.remover(Pessoa.class, obj.getId());
-	}
 }
