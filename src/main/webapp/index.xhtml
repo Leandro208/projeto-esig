@@ -45,6 +45,8 @@ h2 {
         <h:commandButton value="Calcular" action="#{pessoaSalarioConsolidadoMBean.calcular}">
             <f:ajax render="pessoaSalarioConsolidadoTable"/>
         </h:commandButton>
+        <h:commandButton value="Baixar Relatório PDF" action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" />
+        
     </h:form>
 	<h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
 		styleClass="tabela" id="pessoaSalarioConsolidadoTable">

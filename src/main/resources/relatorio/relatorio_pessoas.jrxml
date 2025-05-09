@@ -1,0 +1,36 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="relatorioSalario" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcb3feff-0d65-43e9-9a8f-f39ccc8c90cd">
+	<field name="nomePessoa" class="java.lang.String"/>
+	<field name="nomeCargo" class="java.lang.String"/>
+	<field name="salario" class="java.math.BigDecimal"/>
+	<title height="50">
+		<element kind="staticText" uuid="1fb58e04-534c-4bc2-9449-f76b90d70abd" x="0" y="0" width="555" height="30" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Relatório de Salários]]></text>
+		</element>
+	</title>
+	<columnHeader height="20">
+		<element kind="staticText" uuid="385d9125-9509-44d7-bff4-784e94df66db" x="0" y="0" width="200" height="20" bold="true">
+			<text><![CDATA[Nome]]></text>
+		</element>
+		<element kind="staticText" uuid="229d73df-e9a0-4e9f-9752-62079250e24c" x="200" y="0" width="200" height="20" bold="true">
+			<text><![CDATA[Cargo]]></text>
+		</element>
+		<element kind="staticText" uuid="fada7a48-d6ba-48ed-8794-b828857a6848" x="400" y="0" width="100" height="20" bold="true">
+			<text><![CDATA[Salário]]></text>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<element kind="line" uuid="d48d15b4-9fba-4e8f-b354-8b3bdbafc516" x="0" y="19" width="555" height="1" forecolor="#000000"/>
+			<element kind="textField" uuid="d4949785-8a07-4dbe-b4ab-e9450683c0f6" x="0" y="0" width="200" height="20">
+				<expression><![CDATA[$F{nomePessoa}]]></expression>
+			</element>
+			<element kind="textField" uuid="91d51936-d467-4208-81c3-7195fe84b74a" x="200" y="0" width="200" height="20">
+				<expression><![CDATA[$F{nomeCargo}]]></expression>
+			</element>
+			<element kind="textField" uuid="9fb231e7-fb6e-4f5e-bb28-35727784b065" x="400" y="0" width="100" height="20">
+				<expression><![CDATA["R$ " + $F{salario}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

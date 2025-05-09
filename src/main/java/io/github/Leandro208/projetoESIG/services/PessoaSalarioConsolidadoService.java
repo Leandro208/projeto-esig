@@ -34,6 +34,6 @@ public class PessoaSalarioConsolidadoService {
 	}
 	
 	public List<PessoaSalarioConsolidado> buscarTodos(){
-		return dao.buscarTodos(PessoaSalarioConsolidado.class);
+		return dao.buscarTodos("select p from PessoaSalarioConsolidado p order by p.pessoa.nome");
 	}
 }
