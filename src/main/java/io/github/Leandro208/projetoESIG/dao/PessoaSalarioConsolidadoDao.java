@@ -46,4 +46,13 @@ public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 		Query q = getSession().createNativeQuery(sql, PessoaSalarioConsolidado.class);
 		return q.getResultList();
 	}
+	
+	public PessoaSalarioConsolidado findById(Long id) {
+		try {
+			return findById(id, PessoaSalarioConsolidado.class);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

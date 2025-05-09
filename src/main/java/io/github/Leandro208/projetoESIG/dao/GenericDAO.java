@@ -9,7 +9,7 @@ public interface GenericDAO {
 
 	public void update(Base entidade) throws DAOException;
 
-	void remove(Base entidade) throws DAOException;
+	<T extends Base> void remove(Class<T> clazz, Base entidade) throws DAOException;
 
 	public <T extends Base> T findById(Long id, Class<T> clazz) throws DAOException;
 
@@ -20,4 +20,6 @@ public interface GenericDAO {
 	<T extends Base> void updateField(Long id, Class<T> clazz, String fieldName, Object newValue) throws DAOException;
 
 	void executarSqlNativoTransacional(String sql) throws DAOException;
+
+	
 }

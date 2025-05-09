@@ -17,7 +17,10 @@ public class GenericDAOImpl implements GenericDAO{
 
 	protected EntityManager getSession() {
 		if (em == null || !em.isOpen()) {
-			em = ConnectionFactory.getEntityManager();
+		    em = ConnectionFactory.getEntityManager();
+		    if (em == null || !em.isOpen())  {
+		        throw new IllegalStateException("EntityManager não foi inicializado corretamente.");
+		    }
 		}
 		return em;
 	}
@@ -36,7 +39,6 @@ public class GenericDAOImpl implements GenericDAO{
 				getSession().remove(entidade);
 				break;
 			}
-			commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,21 +58,37 @@ public class GenericDAOImpl implements GenericDAO{
 
 	
 	@Override
-	public void commit(){
-		try {
-			em.getTransaction().begin();
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void remove(Base entidade) throws DAOException {
-		changeOperation(entidade, REMOVER);
+	public void commit() {
+	    try {
+	        if (em == null || !em.isOpen()) {
+	            em = ConnectionFactory.getEntityManager();
+	            if (em == null || !em.isOpen()) {
+	                throw new IllegalStateException("EntityManager não foi inicializado corretamente.");
+	            }
+	        }
+
+	        if (!em.getTransaction().isActive()) {
+	            em.getTransaction().begin();
+	        }
+
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        if (em != null && em.getTransaction().isActive()) {
+	            em.getTransaction().rollback();
+	        }
+	        e.printStackTrace();
+	    }
 	}
 
+	@Override
+	public <T extends Base> void remove(Class<T> clazz, Base entidade) throws DAOException {
+		 T obj = getSession().find(clazz, entidade.getId());
+		 if (obj == null) {
+	            throw new DAOException("Entidade com ID " + entidade.getId() + " não encontrada.");
+	        }
+		 changeOperation(obj, REMOVER);
+	}
+	
 	@Override
 	public <T extends Base> T findById(Long id, Class<T> clazz) throws DAOException {
 		try {

@@ -21,10 +21,17 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	private PessoaSalarioConsolidadoService service;
 
 	private List<PessoaSalarioConsolidado> lista;
+	
+	private final String INICIO = "index";
 
 	public PessoaSalarioConsolidadoMBean() {
 		service = new PessoaSalarioConsolidadoService();
 		carregarLista();
+	}
+	
+	public String inicio() {
+		carregarLista();
+		return navegar(INICIO);
 	}
 	
 	private void carregarLista() {

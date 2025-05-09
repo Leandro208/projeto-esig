@@ -7,7 +7,7 @@
 
 	<h:form>
 		<p:menubar styleClass="custom-menubar">
-			<p:menuitem value="Inicio"  url="/projetoESIG/index.jsf"/>
+			<p:menuitem value="Inicio"  action="#{pessoaSalarioConsolidadoMBean.inicio}"/>
 			
 			<p:submenu label="Pessoas">
 				<p:menuitem value="Cadastrar Pessoa" action="#{pessoaMBean.entrarCadastro}" />

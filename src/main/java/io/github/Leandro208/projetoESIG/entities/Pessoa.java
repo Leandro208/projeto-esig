@@ -104,7 +104,11 @@ public class Pessoa implements Base, Serializable {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
+	
+	public String getEnderecoCompletoFormatado() {
+		return endereco + ", " + cidade + " - CEP " + cep + ", " + pais;
+	}
+	
 	public String getEndereco() {
 		return endereco;
 	}

@@ -8,4 +8,5 @@ public class ListaComando {
 	
 	public static final Comando CADASTRO_PESSOA = new Comando(10, "io.github.Leandro208.projetoESIG.negocio.PessoaCrudOperation");
 	public static final Comando ALTERAR_PESSOA = new Comando(11, "io.github.Leandro208.projetoESIG.negocio.PessoaCrudOperation");
+	public static final Comando REMOVER_PESSOA = new Comando(12, "io.github.Leandro208.projetoESIG.negocio.PessoaCrudOperation");
 }

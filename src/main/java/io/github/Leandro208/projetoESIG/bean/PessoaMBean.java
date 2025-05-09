@@ -20,9 +20,9 @@ public class PessoaMBean extends AbstractMBean {
 
 	private final String FORM_PESSOA = "form_pessoa";
 	private final String CONSULTA_PESSOA = "listar_pessoas";
+	private final String VER_DETALHES = "view_pessoa";
 	private Pessoa pessoa;
 	
-
 	private List<Pessoa> resultados;
 
 	public PessoaMBean() {
@@ -58,8 +58,7 @@ public class PessoaMBean extends AbstractMBean {
 	}
 
 	public String entrarListagemPessoas() {
-		PessoaService service = new PessoaService();
-		resultados = service.buscarTodos();
+		carregarResultados();
 		return navegar(CONSULTA_PESSOA);
 	}
 
@@ -67,7 +66,32 @@ public class PessoaMBean extends AbstractMBean {
 		CargoService cargoService = new CargoService();
 		return cargoService.getComboCargos(pessoa.getCargo());
 	}
+	
+	public String verDetalhes() {
+		return navegar(VER_DETALHES);
+	}
+	
+	public String entrarEdicao() {
+		setConfirmButton(BOTAO_ALTERAR);
+		return navegar(FORM_PESSOA);
+	}
+	
+	public String remover() {
+		Operacao operacao = new OperacaoCadastro();
+		operacao.setComando(ListaComando.REMOVER_PESSOA);
+		operacao.setEntidade(pessoa);
+		try {
+			realizarOperacao(operacao);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entrarListagemPessoas();
+	}
 
+	private void carregarResultados() {
+		PessoaService service = new PessoaService();
+		resultados = service.buscarTodos();
+	}
 	public List<Pessoa> getResultados() {
 		return resultados;
 	}
