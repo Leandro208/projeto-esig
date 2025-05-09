@@ -1,131 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Salários Consolidados</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
+	<title>Salários Consolidados</title>
+	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
+	<style>
 
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-            color: #333;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .tabela {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 0 auto 40px;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .tabela th, .tabela td {
-            border: 1px solid #ddd;
-            padding: 14px;
-            text-align: left;
-        }
-
-        .tabela th {
-            background-color: #007bff;
-            color: white;
-            font-weight: normal;
-        }
-
-        .form-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .form-buttons input {
-            padding: 10px 18px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-buttons input:hover {
-            background-color: #0056b3;
-        }
-    </style>
+	.form-buttons {
+		display: flex;
+		justify-content: center;
+		gap: 15px;
+		margin-bottom: 30px;
+	}
+	
+	.form-buttons input {
+		padding: 10px 18px;
+		font-size: 14px;
+		border: none;
+		border-radius: 4px;
+		background-color: #007bff;
+		color: white;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+	
+	.form-buttons input:hover {
+		background-color: #0056b3;
+	}
+	
+	
+</style>
 </h:head>
 
 <h:body>
-    <h2>Pessoas e Salários Consolidados</h2>
-    
-    <h:form>
-        <p:menubar>
-            <p:submenu label="Pessoas">
-            	<p:menuitem value="Cadastrar Pessoa" action="#{pessoaMBean.entrarCadastro}" />
-                <p:menuitem value="Listar/Alterar Pessoas" action="#{pessoaMBean.entrarListagemPessoas}" />
-			</p:submenu>
-            <p:submenu label="Relatórios">
-                <p:menuitem value="Relatório de Pessoas" action="#{pessoaMBean.entrarListagemPessoas}" />
-            </p:submenu>
-            
-            <p:menuitem value="Cadastrar Cargo" action="#{cargoMBean.entrarCadastro}" />
-            <p:menuitem value="Cadastrar Vencimento" action="#{vencimentoMBean.entrarCadastro}" />
-            <p:menuitem value="Cadastrar Cargo Vencimento" action="#{cargoVencimentoMBean.entrarCadastro}" />
-            
-        </p:menubar>
-    </h:form>
-    
 
-    <h:form>
-        <div class="form-buttons">
-            <h:commandButton value="Calcular" action="#{pessoaSalarioConsolidadoMBean.calcular}">
-                <f:ajax render="pessoaSalarioConsolidadoTable"/>
-            </h:commandButton>
-            <h:commandButton value="Baixar Relatório PDF" action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" />
-        </div>
-    </h:form>
+	<h2>Pessoas e Salários Consolidados</h2>
+	<ui:include src="/menu.xhtml" />
 
-    <h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
-                 styleClass="tabela" id="pessoaSalarioConsolidadoTable">
+	<h:form>
+		<div class="form-buttons">
+			<h:commandButton value="Calcular"
+				action="#{pessoaSalarioConsolidadoMBean.calcular}">
+				<f:ajax render="pessoaSalarioConsolidadoTable" />
+			</h:commandButton>
+			<h:commandButton value="Baixar Relatório PDF"
+				action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" />
+		</div>
+	</h:form>
 
-        <h:column>
-            <f:facet name="header">ID</f:facet>
+	<h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
+		styleClass="tabela" id="pessoaSalarioConsolidadoTable">
+
+		<h:column>
+			<f:facet name="header">ID</f:facet>
             #{item.pessoa.id}
         </h:column>
 
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
             #{item.pessoa.nome}
         </h:column>
 
-        <h:column>
-            <f:facet name="header">Cargo</f:facet>
+		<h:column>
+			<f:facet name="header">Cargo</f:facet>
             #{item.cargo.nome}
         </h:column>
 
-        <h:column>
-            <f:facet name="header">Salário</f:facet>
-            R$ #{item.salario}
+		<h:column>
+			<f:facet name="header">Salário</f:facet>
+            <span style="color: green;">R$ #{item.salario}</span>
         </h:column>
 
-    </h:dataTable>
+	</h:dataTable>
 </h:body>
 </html>

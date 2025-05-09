@@ -1,5 +1,7 @@
 package io.github.Leandro208.projetoESIG.bean;
 
+import javax.faces.context.FacesContext;
+
 import io.github.Leandro208.projetoESIG.negocio.CrudOperation;
 import io.github.Leandro208.projetoESIG.negocio.Operacao;
 import io.github.Leandro208.projetoESIG.util.Message;
@@ -21,18 +23,22 @@ public abstract class AbstractMBean {
 
 	public void addMensagem(String mensagem) {
 		Message.info(mensagem);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	}
 
 	public void addMensagemErro(String mensagem) {
 		Message.erro(mensagem);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	}
 
 	public void addMensagemWarning(String mensagem) {
 		Message.warn(mensagem);
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	}
 
 	public void addMensagemErroPadrao() {
 		addMensagemErro("Um erro ocorreu durante a execução desta operação. ");
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 	}
 
 	public String getConfirmButton() {

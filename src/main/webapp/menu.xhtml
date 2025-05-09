@@ -1,0 +1,22 @@
+<!-- menu.xhtml -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form>
+		<p:menubar styleClass="custom-menubar">
+			<p:menuitem value="Inicio"  url="/projetoESIG/index.jsf"/>
+			
+			<p:submenu label="Pessoas">
+				<p:menuitem value="Cadastrar Pessoa" action="#{pessoaMBean.entrarCadastro}" />
+				<p:menuitem value="Listar/Alterar Pessoas" action="#{pessoaMBean.entrarListagemPessoas}" />
+			</p:submenu>
+
+			<p:menuitem value="Cadastrar Cargo" action="#{cargoMBean.entrarCadastro}" />
+			<p:menuitem value="Cadastrar Vencimento" action="#{vencimentoMBean.entrarCadastro}" />
+			<p:menuitem value="Cadastrar Cargo Vencimento" action="#{cargoVencimentoMBean.entrarCadastro}" />
+		</p:menubar>
+	</h:form>
+</ui:composition>

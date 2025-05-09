@@ -1,108 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-    <title>Visualizar Pessoas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
-            margin: 0;
-            padding: 0;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-            color: #333;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-
-        .tabela {
-            border-collapse: collapse;
-            width: 90%;
-            margin: 0 auto 40px;
-            background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .tabela th, .tabela td {
-            border: 1px solid #ddd;
-            padding: 14px;
-            text-align: left;
-        }
-
-        .tabela th {
-            background-color: #007bff;
-            color: white;
-            font-weight: normal;
-        }
-
-        .form-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .form-buttons input {
-            padding: 10px 18px;
-            font-size: 14px;
-            border: none;
-            border-radius: 4px;
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-buttons input:hover {
-            background-color: #0056b3;
-        }
-    </style>
+	<title>Visualizar Pessoas</title>
+	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
 </h:head>
 
 <h:body>
-    <h2>Gerenciar Pessoas</h2>
+	
+	<h2>Gerenciar Pessoas</h2>
+	<ui:include src="/menu.xhtml" />
 
-    <div class="button-container">
-        <p:linkButton href="form_pessoa.jsf" value="Cadastrar Pessoa" styleClass="ui-button-info"/>
-    </div>
+	<h:dataTable value="#{pessoaMBean.resultados}" var="item"
+		styleClass="tabela" id="pessoaSalarioConsolidadoTable">
 
-    <h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
-                 styleClass="tabela" id="pessoaSalarioConsolidadoTable">
-
-        <h:column>
-            <f:facet name="header">ID</f:facet>
-            #{item.pessoa.id}
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+            #{item.id}
         </h:column>
 
-        <h:column>
-            <f:facet name="header">Nome</f:facet>
-            #{item.pessoa.nome}
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
+            #{item.nome}
         </h:column>
 
-        <h:column>
-            <f:facet name="header">Cargo</f:facet>
+		<h:column>
+			<f:facet name="header">Cargo</f:facet>
             #{item.cargo.nome}
         </h:column>
 
+		<h:column>
+			<f:facet name="header">Email</f:facet>
+            #{item.email}
+        </h:column>
         <h:column>
-            <f:facet name="header">Salário</f:facet>
-            R$ #{item.salario}
+			<f:facet name="header">Data de Nascimento</f:facet>
+             <h:outputText value="#{item.dataNascimento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+                            timeZone="GMT-3" />
+                    </h:outputText>
         </h:column>
 
-    </h:dataTable>
+	</h:dataTable>
 </h:body>
 </html>
