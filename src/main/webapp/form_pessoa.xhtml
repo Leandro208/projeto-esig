@@ -2,18 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Cadastro de Pessoa</title>
 	<link rel="stylesheet" href="assets/css/form.css" />
+	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
 </h:head>
 <h:body>
+	<h2>Cadastro de Pessoa</h2>
+	<ui:include src="/menu.xhtml" />
 	<div class="container">
 		<h:form>
 			<p:messages id="messages" closable="true">
 				<p:autoUpdate />
 			</p:messages>
-			<h3>Cadastro de Pessoa</h3>
 
 			<div class="form-group">
 				<label for="nome">Nome</label>
@@ -74,7 +78,7 @@
 			</div>
 
 			<h:panelGrid columns="2">
-				<h:commandButton value="Salvar" action="#{pessoaMBean.salvar}"
+				<h:commandButton value="#{pessoaMBean.confirmButton}" action="#{pessoaMBean.salvar}"
 					styleClass="button" />
 				<h:commandButton value="Cancelar" action="#{pessoaMBean.cancelar}"
 					styleClass="button" />

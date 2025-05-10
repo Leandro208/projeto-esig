@@ -1,0 +1,42 @@
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f6f8;
+	margin: 0;
+	padding: 0;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 40px;
+	color: #333;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 20px 0;
+}
+
+.tabela {
+	border-collapse: collapse;
+	width: 90%;
+	margin: 0 auto 40px;
+	background-color: #fff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.tabela th, .tabela td {
+	border: 1px solid #ddd;
+	padding: 14px;
+	text-align: left;
+}
+
+.tabela th {
+	background-color: #007bff;
+	color: white;
+	font-weight: normal;
+}
