@@ -10,8 +10,8 @@ import javax.faces.model.SelectItem;
 import io.github.Leandro208.projetoESIG.dominio.TipoVencimento;
 import io.github.Leandro208.projetoESIG.dominio.Vencimento;
 import io.github.Leandro208.projetoESIG.negocio.ListaComando;
-import io.github.Leandro208.projetoESIG.negocio.Operacao;
-import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;
+import io.github.Leandro208.projetoESIG.negocio.Movimento;
+import io.github.Leandro208.projetoESIG.negocio.MovimentoCadastro;
 
 @ManagedBean
 @SessionScoped
@@ -34,11 +34,11 @@ public class VencimentoMBean extends AbstractMBean {
 	}
 
 	public String salvar() {
-		Operacao operacao = new OperacaoCadastro();
-		operacao.setComando(ListaComando.CADASTRAR);
-		operacao.setEntidade(vencimento);
+		Movimento movimento = new MovimentoCadastro();
+		movimento.setComando(ListaComando.CADASTRAR);
+		movimento.setEntidade(vencimento);
 		try {
-			realizarOperacao(operacao);
+			execute(movimento);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

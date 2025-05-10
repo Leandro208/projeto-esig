@@ -9,8 +9,8 @@ import javax.faces.model.SelectItem;
 
 import io.github.Leandro208.projetoESIG.dominio.Pessoa;
 import io.github.Leandro208.projetoESIG.negocio.ListaComando;
-import io.github.Leandro208.projetoESIG.negocio.Operacao;
-import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;
+import io.github.Leandro208.projetoESIG.negocio.Movimento;
+import io.github.Leandro208.projetoESIG.negocio.MovimentoCadastro;
 import io.github.Leandro208.projetoESIG.service.CargoService;
 import io.github.Leandro208.projetoESIG.service.PessoaService;
 
@@ -36,19 +36,20 @@ public class PessoaMBean extends AbstractMBean {
 
 	public String entrarCadastro() {
 		reset();
+		setConfirmButton(BOTAO_CADASTRAR);
 		return navegar(FORM_PESSOA);
 	}
 
 	public String salvar() {
-		Operacao operacao = new OperacaoCadastro();
+		Movimento movimento = new MovimentoCadastro();
 		if (getConfirmButton().equals(BOTAO_CADASTRAR)) {
-			operacao.setComando(ListaComando.CADASTRO_PESSOA);
+			 movimento.setComando(ListaComando.CADASTRO_PESSOA);
 		} else if (getConfirmButton().equals(BOTAO_ALTERAR)) {
-			operacao.setComando(ListaComando.ALTERAR_PESSOA);
+			movimento.setComando(ListaComando.ALTERAR_PESSOA);
 		}
-		operacao.setEntidade(pessoa);
+		movimento.setEntidade(pessoa);
 		try {
-			realizarOperacao(operacao);
+			execute(movimento);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -77,11 +78,11 @@ public class PessoaMBean extends AbstractMBean {
 	}
 	
 	public String remover() {
-		Operacao operacao = new OperacaoCadastro();
-		operacao.setComando(ListaComando.REMOVER_PESSOA);
-		operacao.setEntidade(pessoa);
+		Movimento movimento = new MovimentoCadastro();
+		movimento.setComando(ListaComando.REMOVER_PESSOA);
+		movimento.setEntidade(pessoa);
 		try {
-			realizarOperacao(operacao);
+			execute(movimento);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

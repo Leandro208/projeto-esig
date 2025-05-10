@@ -2,8 +2,8 @@ package io.github.Leandro208.projetoESIG.controller;
 
 import javax.faces.context.FacesContext;
 
-import io.github.Leandro208.projetoESIG.negocio.CrudOperation;
-import io.github.Leandro208.projetoESIG.negocio.Operacao;
+import io.github.Leandro208.projetoESIG.negocio.ProcessadorComando;
+import io.github.Leandro208.projetoESIG.negocio.Movimento;
 import io.github.Leandro208.projetoESIG.util.Message;
 
 public abstract class AbstractMBean {
@@ -14,10 +14,10 @@ public abstract class AbstractMBean {
 	
 	private String confirmButton = BOTAO_CADASTRAR;
 	
-	public void realizarOperacao(Operacao operacao) throws Exception {
-		Class<?> clazz = Class.forName(operacao.getComando().getClasse());
-		CrudOperation crudOperation = (CrudOperation) clazz.getDeclaredConstructor().newInstance();
-		crudOperation.operar(operacao);
+	public void execute(Movimento movimento) throws Exception {
+		Class<?> clazz = Class.forName(movimento.getComando().getClasse());
+		ProcessadorComando processador = (ProcessadorComando) clazz.getDeclaredConstructor().newInstance();
+		processador.execute(movimento);
 
 	}
 
