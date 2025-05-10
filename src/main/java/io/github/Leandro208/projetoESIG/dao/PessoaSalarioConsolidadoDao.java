@@ -1,10 +1,13 @@
 package io.github.Leandro208.projetoESIG.dao;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import io.github.Leandro208.projetoESIG.entities.PessoaSalarioConsolidado;
+import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
+import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
 
 public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 
@@ -36,6 +39,20 @@ public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
+		salvarHistorico();
+	}
+	
+	private void salvarHistorico() {
+		HistoricoCalculoSalario historico = new HistoricoCalculoSalario();
+		historico.setDataCadastro(new Date());
+		try {
+			create(historico);
+		} catch (DAOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			commit();
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,5 +71,18 @@ public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public HistoricoCalculoSalario findUltimoCalculo() {
+	    String sql = "SELECT * FROM historico_calculo_salario hcs ORDER BY hcs.data_cadastro DESC";
+	    
+	    Query q = getSession().createNativeQuery(sql, HistoricoCalculoSalario.class);
+	    q.setMaxResults(1);
+	    
+	    try {
+	        return (HistoricoCalculoSalario) q.getSingleResult();
+	    } catch (NoResultException e) {
+	        return null;
+	    }
 	}
 }

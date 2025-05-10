@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.bean;
+package io.github.Leandro208.projetoESIG.controller;
 
 import javax.faces.context.FacesContext;
 

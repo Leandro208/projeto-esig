@@ -2,7 +2,7 @@ package io.github.Leandro208.projetoESIG.dao;
 
 import java.util.Collection;
 
-import io.github.Leandro208.projetoESIG.entities.Base;
+import io.github.Leandro208.projetoESIG.dominio.Base;
 
 public interface GenericDAO {
 	public void create(Base entidade) throws DAOException;

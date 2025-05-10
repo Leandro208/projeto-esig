@@ -3,7 +3,7 @@ package io.github.Leandro208.projetoESIG.negocio;
 import io.github.Leandro208.projetoESIG.dao.DAOException;
 import io.github.Leandro208.projetoESIG.dao.GenericDAO;
 import io.github.Leandro208.projetoESIG.dao.GenericDAOImpl;
-import io.github.Leandro208.projetoESIG.entities.Base;
+import io.github.Leandro208.projetoESIG.dominio.Base;
 
 public class CadastroCrudOperation implements CrudOperation{
 

@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.services;
+package io.github.Leandro208.projetoESIG.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import javax.faces.model.SelectItem;
 
 import io.github.Leandro208.projetoESIG.dao.CargoDao;
 import io.github.Leandro208.projetoESIG.dao.DAOException;
-import io.github.Leandro208.projetoESIG.entities.Cargo;
+import io.github.Leandro208.projetoESIG.dominio.Cargo;
 
 public class CargoService {
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import io.github.Leandro208.projetoESIG.entities.Vencimento;
+import io.github.Leandro208.projetoESIG.dominio.Vencimento;
 
 public class VencimentoDao extends GenericDAOImpl{
 

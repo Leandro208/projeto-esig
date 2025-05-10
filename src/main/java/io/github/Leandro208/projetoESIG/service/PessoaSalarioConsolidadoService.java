@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.services;
+package io.github.Leandro208.projetoESIG.service;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -8,8 +8,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import io.github.Leandro208.projetoESIG.dao.PessoaSalarioConsolidadoDao;
+import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
+import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
 import io.github.Leandro208.projetoESIG.dto.RelatorioPessoaSalarioDTO;
-import io.github.Leandro208.projetoESIG.entities.PessoaSalarioConsolidado;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -43,5 +44,10 @@ public class PessoaSalarioConsolidadoService {
 		try (ServletOutputStream out = response.getOutputStream()) {
 			JasperExportManager.exportReportToPdfStream(jasperPrint, out);
 		}
+	}
+	
+	public HistoricoCalculoSalario findUltimoCalculo() {
+		PessoaSalarioConsolidadoDao dao = new PessoaSalarioConsolidadoDao();
+		return dao.findUltimoCalculo();
 	}
 }

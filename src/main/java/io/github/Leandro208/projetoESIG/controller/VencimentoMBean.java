@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.bean;
+package io.github.Leandro208.projetoESIG.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import io.github.Leandro208.projetoESIG.entities.Vencimento;
-import io.github.Leandro208.projetoESIG.enums.TipoVencimento;
+import io.github.Leandro208.projetoESIG.dominio.TipoVencimento;
+import io.github.Leandro208.projetoESIG.dominio.Vencimento;
 import io.github.Leandro208.projetoESIG.negocio.ListaComando;
 import io.github.Leandro208.projetoESIG.negocio.Operacao;
 import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;

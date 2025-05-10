@@ -1,6 +1,6 @@
 package io.github.Leandro208.projetoESIG.negocio;
 
-import io.github.Leandro208.projetoESIG.entities.Base;
+import io.github.Leandro208.projetoESIG.dominio.Base;
 
 public class OperacaoCadastro implements Operacao {
 	private Base entidade;

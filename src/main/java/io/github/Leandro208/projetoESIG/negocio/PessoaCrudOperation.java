@@ -1,8 +1,8 @@
 package io.github.Leandro208.projetoESIG.negocio;
 
 import io.github.Leandro208.projetoESIG.dao.PessoaSalarioConsolidadoDao;
-import io.github.Leandro208.projetoESIG.entities.Pessoa;
-import io.github.Leandro208.projetoESIG.entities.PessoaSalarioConsolidado;
+import io.github.Leandro208.projetoESIG.dominio.Pessoa;
+import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
 
 public class PessoaCrudOperation  extends CadastroCrudOperation{
 	

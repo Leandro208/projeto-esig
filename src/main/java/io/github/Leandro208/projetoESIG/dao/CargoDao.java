@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import io.github.Leandro208.projetoESIG.entities.Cargo;
+import io.github.Leandro208.projetoESIG.dominio.Cargo;
 
 public class CargoDao extends GenericDAOImpl {
 

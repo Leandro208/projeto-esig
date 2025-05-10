@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.bean;
+package io.github.Leandro208.projetoESIG.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,16 +10,19 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
+import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
 import io.github.Leandro208.projetoESIG.dto.RelatorioPessoaSalarioDTO;
-import io.github.Leandro208.projetoESIG.entities.PessoaSalarioConsolidado;
-import io.github.Leandro208.projetoESIG.services.PessoaSalarioConsolidadoService;
+import io.github.Leandro208.projetoESIG.service.PessoaSalarioConsolidadoService;
 
 @ManagedBean
 @SessionScoped
 public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 
 	private PessoaSalarioConsolidadoService service;
-
+	
+	private HistoricoCalculoSalario ultimoCalculo;
+	
 	private List<PessoaSalarioConsolidado> lista;
 	
 	private final String INICIO = "index";
@@ -27,6 +30,7 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	public PessoaSalarioConsolidadoMBean() {
 		service = new PessoaSalarioConsolidadoService();
 		carregarLista();
+		carregarUltimoCalculo();
 	}
 	
 	public String inicio() {
@@ -42,6 +46,7 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	public void calcular() {
 		service.calcular();
 		carregarLista();
+		carregarUltimoCalculo();
 	}
 
 	public void gerarRelatorio() {
@@ -65,9 +70,18 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void carregarUltimoCalculo() {
+		ultimoCalculo = service.findUltimoCalculo();
+	}
+	
 	public Collection<PessoaSalarioConsolidado> getLista() {
 		return lista;
 	}
+
+	public HistoricoCalculoSalario getUltimoCalculo() {
+		return ultimoCalculo;
+	}
+	
 
 }

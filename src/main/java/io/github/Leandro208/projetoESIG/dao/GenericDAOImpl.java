@@ -6,7 +6,7 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 
 import io.github.Leandro208.projetoESIG.connection.ConnectionFactory;
-import io.github.Leandro208.projetoESIG.entities.Base;
+import io.github.Leandro208.projetoESIG.dominio.Base;
 
 public class GenericDAOImpl implements GenericDAO{
 	protected static final int INSERIR = 1;

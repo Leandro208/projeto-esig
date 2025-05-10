@@ -1,11 +1,11 @@
-package io.github.Leandro208.projetoESIG.conversores;
+package io.github.Leandro208.projetoESIG.conversor;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import io.github.Leandro208.projetoESIG.enums.TipoVencimento;
+import io.github.Leandro208.projetoESIG.dominio.TipoVencimento;
 
 @FacesConverter("tipoVencimentoConverter")
 public class TipoVencimentoConverter implements Converter {

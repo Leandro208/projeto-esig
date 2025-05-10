@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.entities;
+package io.github.Leandro208.projetoESIG.dominio;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -10,8 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import io.github.Leandro208.projetoESIG.enums.TipoVencimento;
 
 @Entity
 public class Vencimento implements Base{

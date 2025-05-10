@@ -1,9 +1,9 @@
-package io.github.Leandro208.projetoESIG.bean;
+package io.github.Leandro208.projetoESIG.controller;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import io.github.Leandro208.projetoESIG.entities.Cargo;
+import io.github.Leandro208.projetoESIG.dominio.Cargo;
 import io.github.Leandro208.projetoESIG.negocio.ListaComando;
 import io.github.Leandro208.projetoESIG.negocio.Operacao;
 import io.github.Leandro208.projetoESIG.negocio.OperacaoCadastro;

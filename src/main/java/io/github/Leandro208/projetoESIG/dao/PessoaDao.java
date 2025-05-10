@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
-import io.github.Leandro208.projetoESIG.entities.Pessoa;
+import io.github.Leandro208.projetoESIG.dominio.Pessoa;
 
 public class PessoaDao extends GenericDAOImpl{
 
