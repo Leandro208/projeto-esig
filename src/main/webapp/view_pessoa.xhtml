@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Detalhes da Pessoa</title>
+	<link rel="stylesheet" href="assets/css/menu.css" />
+	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<style>
+		.container {
+			max-width: 700px;
+			margin: 40px auto;
+			padding: 30px;
+			background-color: #fff;
+			border-radius: 12px;
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+		}
+
+
+		.detail-row {
+			display: flex;
+			justify-content: space-between;
+			margin: 15px 0;
+			padding-bottom: 8px;
+			border-bottom: 1px solid #eaeaea;
+		}
+
+		.detail-label {
+			font-weight: 600;
+			color: #555;
+			flex-basis: 40%;
+		}
+
+		.detail-value {
+			color: #222;
+			flex-basis: 55%;
+			text-align: right;
+		}
+
+		.actions {
+			text-align: center;
+			margin-top: 30px;
+		}
+
+		.actions .ui-button {
+			margin: 0 10px;
+		}
+	</style>
+</h:head>
+
+<h:body>
+	<h2>Detalhes da Pessoa</h2>
+	<ui:include src="/menu.xhtml" />
+
+	<div class="container">
+
+		<div class="detail-row">
+			<div class="detail-label">ID:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.id}</div>
+		</div>
+
+		<div class="detail-row">
+			<div class="detail-label">Nome:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.nome}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Email:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.email}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Cidade:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.cidade}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">CEP:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.cep}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Endereco:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.endereco}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Endereco Completo:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.enderecoCompletoFormatado}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">País:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.pais}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Usuario:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.usuario}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Telefone:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.telefone}</div>
+		</div>
+		
+		<div class="detail-row">
+			<div class="detail-label">Cargo:</div>
+			<div class="detail-value">#{pessoaMBean.pessoa.cargo.nome}</div>
+		</div>
+
+		<div class="detail-row">
+			<div class="detail-label">Data de Nascimento:</div>
+			<div class="detail-value">
+				<h:outputText value="#{pessoaMBean.pessoa.dataNascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</div>
+		</div>
+		
+		
+		
+		<div class="actions">
+			<p:button value="Voltar" outcome="/listar_pessoas.xhtml" styleClass="ui-button-secondary" />
+			<p:button value="Editar" outcome="/listar_pessoas.xhtml">
+				<f:param name="id" value="#{pessoaMBean.pessoa.id}" />
+			</p:button>
+		</div>
+	</div>
+
+</h:body>
+</html>

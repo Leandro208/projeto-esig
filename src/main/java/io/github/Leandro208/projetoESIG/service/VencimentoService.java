@@ -1,10 +1,9 @@
-package io.github.Leandro208.projetoESIG.services;
+package io.github.Leandro208.projetoESIG.service;
 
 import java.util.List;
 
 import io.github.Leandro208.projetoESIG.dao.GenericDao;
-
-import io.github.Leandro208.projetoESIG.entities.Vencimento;
+import io.github.Leandro208.projetoESIG.dominio.Vencimento;
 
 public class VencimentoService implements BaseService<Vencimento> {
 

@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.bean;
+package io.github.Leandro208.projetoESIG.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +7,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
-import io.github.Leandro208.projetoESIG.entities.Vencimento;
-import io.github.Leandro208.projetoESIG.enums.TipoVencimento;
-import io.github.Leandro208.projetoESIG.services.VencimentoService;
+import io.github.Leandro208.projetoESIG.dominio.TipoVencimento;
+import io.github.Leandro208.projetoESIG.dominio.Vencimento;
+import io.github.Leandro208.projetoESIG.service.VencimentoService;
 
 @ManagedBean
 @SessionScoped
 public class VencimentoMBean extends AbstractMBean{
+
+	private final String FORM_VENCIMENTO = "form_vencimento";
 
 	private Vencimento vencimento;
 	private final VencimentoService service;
@@ -23,10 +25,19 @@ public class VencimentoMBean extends AbstractMBean{
 		vencimento = new Vencimento();
 	}
 	
+	private void reset() {
+		vencimento = new Vencimento();
+	}
+
+	public String entrarCadastro() {
+		reset();
+		return navegar(FORM_VENCIMENTO);
+	}
+	
 	public String salvar() {
 		service.salvar(vencimento);
 		vencimento = new Vencimento();
-		return navegar("form_vencimento");
+		return navegar(FORM_VENCIMENTO);
 	}
 
 	public List<SelectItem> getComboTipoVencimento() {

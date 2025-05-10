@@ -6,7 +6,7 @@
 
 	<persistence-unit name="salarios">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>io.github.Leandro208.projetoESIG.entities.Pessoa</class>
+		<class>io.github.Leandro208.projetoESIG.dominio.Pessoa</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/salarios"/>
 			<property name="javax.persistence.jdbc.user" value="postgres"/>

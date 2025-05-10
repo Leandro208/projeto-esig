@@ -1,7 +1,7 @@
-package io.github.Leandro208.projetoESIG.services;
+package io.github.Leandro208.projetoESIG.service;
 
 import io.github.Leandro208.projetoESIG.dao.GenericDao;
-import io.github.Leandro208.projetoESIG.entities.CargoVencimento;
+import io.github.Leandro208.projetoESIG.dominio.CargoVencimento;
 
 public class CargoVencimentoService implements BaseService<CargoVencimento>{
 

@@ -1,12 +1,12 @@
-package io.github.Leandro208.projetoESIG.conversores;
+package io.github.Leandro208.projetoESIG.conversor;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import io.github.Leandro208.projetoESIG.entities.Cargo;
-import io.github.Leandro208.projetoESIG.services.CargoService;
+import io.github.Leandro208.projetoESIG.dominio.Cargo;
+import io.github.Leandro208.projetoESIG.service.CargoService;
 
 @FacesConverter("cargoConverter")
 public class CargoConverter implements Converter{

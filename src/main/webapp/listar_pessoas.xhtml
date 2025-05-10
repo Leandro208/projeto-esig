@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Visualizar Pessoas</title>
+	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+</h:head>
+
+<h:body>
+
+	<h2>Gerenciar Pessoas</h2>
+	<ui:include src="/menu.xhtml" />
+
+	<h:dataTable value="#{pessoaMBean.resultados}" var="item"
+		styleClass="tabela" id="pessoaSalarioConsolidadoTable">
+
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+            #{item.id}
+        </h:column>
+
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
+            #{item.nome}
+        </h:column>
+
+		<h:column>
+			<f:facet name="header">Cargo</f:facet>
+            #{item.cargo.nome}
+        </h:column>
+
+		<h:column>
+			<f:facet name="header">Email</f:facet>
+            #{item.email}
+        </h:column>
+		<h:column>
+			<f:facet name="header">Data de Nascimento</f:facet>
+			<h:outputText value="#{item.dataNascimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
+					timeZone="GMT-3" />
+			</h:outputText>
+		</h:column>
+
+		<h:column>
+    <f:facet name="header">Ações</f:facet>
+    <h:panelGroup layout="block" style="display: flex; gap: 8px;">
+        <h:form style="display: inline;">
+            <h:commandLink action="#{pessoaMBean.verDetalhes}" title="Ver detalhes">
+                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
+                <i class="pi pi-search" style="font-size: 1.0em;"></i>
+            </h:commandLink>
+        </h:form>
+
+        <h:form style="display: inline;">
+            <h:commandLink action="#{pessoaMBean.entrarEdicao}" title="Editar pessoa">
+                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
+                <i class="pi pi-pencil" style="font-size: 1.0em;"></i>
+            </h:commandLink>
+        </h:form>
+
+        <h:form style="display: inline;">
+            <h:commandLink action="#{pessoaMBean.remover}" title="Remover pessoa" 
+                           onclick="return confirm('Tem certeza que deseja remover?');">
+                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
+                <i class="pi pi-trash" style="font-size: 1.0em; color: red;"></i>
+            </h:commandLink>
+        </h:form>
+    </h:panelGroup>
+</h:column>
+
+	</h:dataTable>
+</h:body>
+</html>

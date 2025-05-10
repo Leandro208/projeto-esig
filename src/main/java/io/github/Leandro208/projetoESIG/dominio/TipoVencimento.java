@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.enums;
+package io.github.Leandro208.projetoESIG.dominio;
 
 public enum TipoVencimento {
 	CREDITO(1), 

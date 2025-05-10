@@ -1,4 +1,4 @@
-package io.github.Leandro208.projetoESIG.entities;
+package io.github.Leandro208.projetoESIG.dominio;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -103,6 +103,10 @@ public class Pessoa implements Base, Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+	
+	public String getEnderecoCompletoFormatado() {
+		return endereco + ", " + cidade + " - CEP " + cep + ", " + pais;
 	}
 
 	public String getEndereco() {
