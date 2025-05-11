@@ -26,6 +26,10 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	private List<PessoaSalarioConsolidado> lista;
 	
 	private final String INICIO = "index";
+	
+	private boolean emProcessamento = false;
+	private boolean processado = false;
+
 
 	public PessoaSalarioConsolidadoMBean() {
 		service = new PessoaSalarioConsolidadoService();
@@ -44,9 +48,19 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	}
 
 	public void calcular() {
-		service.calcular();
-		carregarLista();
-		carregarUltimoCalculo();
+		emProcessamento = true;
+		processado = false;
+
+		new Thread(() -> {
+			try {
+				service.calcular();
+				carregarLista();
+				carregarUltimoCalculo();
+			} finally {
+				emProcessamento = false;
+				processado = true;
+			}
+		}).start();
 	}
 
 	public void gerarRelatorio() {
@@ -73,6 +87,9 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	
 	private void carregarUltimoCalculo() {
 		ultimoCalculo = service.findUltimoCalculo();
+		if(ultimoCalculo!=null) {
+			processado = true;
+		}
 	}
 	
 	public Collection<PessoaSalarioConsolidado> getLista() {
@@ -83,5 +100,13 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 		return ultimoCalculo;
 	}
 	
+	public boolean isEmProcessamento() {
+		return emProcessamento;
+	}
+
+	public boolean isProcessado() {
+		return processado;
+	}
+
 
 }

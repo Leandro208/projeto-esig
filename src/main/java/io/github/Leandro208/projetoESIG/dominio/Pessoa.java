@@ -42,6 +42,7 @@ public class Pessoa implements Base, Serializable {
 	private String telefone;
 	
 	@Temporal(TemporalType.DATE)
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)

@@ -30,26 +30,81 @@
 .form-buttons input:hover {
 	background-color: #0056b3;
 }
+
 .ultimo-calculo-panel {
-    margin-top: 30px;
-    padding: 15px;
-    background-color: #f0f4f8;
-    border: 1px solid #d0dbe5;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 16px;
-    color: #333;
+	margin-top: 30px;
+	padding: 15px;
+	background-color: #f0f4f8;
+	border: 1px solid #d0dbe5;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 16px;
+	color: #333;
 }
 
 .ultimo-calculo-panel h3 {
-    margin: 0;
-    font-weight: normal;
+	margin: 0;
+	font-weight: normal;
 }
 
 .ultimo-calculo-panel strong {
-    color: #007bff;
+	color: #007bff;
+	font-weight: bold;
+	margin-left: 8px;
+}
+
+.processando-texto {
+	font-weight: bold;
+	color: orange;
+	position: relative;
+	padding-left: 20px;
+}
+
+.processando-texto::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: orange;
+	animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+	50% {
+		opacity: 0.5;
+		transform: translateY(-50%) scale(1.3);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(-50%) scale(1);
+	}
+}
+
+.processado-texto {
+	font-weight: bold;
+	color: green;
+}
+.tabela-estilizada {
+    font-size: 14px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.ui-datatable .ui-datatable-header {
+    background-color: #f4f4f4;
     font-weight: bold;
-    margin-left: 8px;
+}
+
+.ui-commandbutton {
+    margin-right: 5px;
 }
 
 </style>
@@ -60,53 +115,71 @@
 	<h2>Pessoas e Salários Consolidados</h2>
 	<ui:include src="/menu.xhtml" />
 
-	<h:form>
+	<h:form id="formCalculo">
+		<h:panelGroup id="statusMensagem" layout="block"
+			style="text-align:center; margin-bottom: 20px; min-height: 40px;">
+
+
+			<h:outputText value="Processando..."
+				rendered="#{pessoaSalarioConsolidadoMBean.emProcessamento}"
+				styleClass="processando-texto" />
+
+
+			<h:panelGroup rendered="#{pessoaSalarioConsolidadoMBean.processado}">
+				<h:outputText value="Processado com sucesso!"
+					style="display:block; font-weight:bold; color:green; font-size:16px; margin-bottom:5px;" />
+				<h:outputText value="Último cálculo: "
+					style="color:#333; font-size:14px;" />
+				<h:outputText
+					value="#{pessoaSalarioConsolidadoMBean.ultimoCalculo.dataCadastro}"
+					style="color:#333; font-size:14px; font-weight:bold;">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+				</h:outputText>
+			</h:panelGroup>
+		</h:panelGroup>
+
 		<div class="form-buttons">
-			<h:commandButton value="Calcular"
-				action="#{pessoaSalarioConsolidadoMBean.calcular}">
-				<f:ajax render="pessoaSalarioConsolidadoTable infoUltimoCalculo" />
-			</h:commandButton>
-			<h:commandButton value="Baixar Relatório PDF"
-				action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" />
+			<p:commandButton value="Calcular"
+				action="#{pessoaSalarioConsolidadoMBean.calcular}"
+				update="formCalculo" process="@this"
+				rendered="#{!pessoaSalarioConsolidadoMBean.emProcessamento}" />
+
+
+			<p:poll interval="1"
+				update="formCalculo pessoaSalarioConsolidadoTable"
+				rendered="#{pessoaSalarioConsolidadoMBean.emProcessamento}" />
+
+			<p:commandButton value="Baixar Relatório PDF"
+				action="#{pessoaSalarioConsolidadoMBean.gerarRelatorio}" ajax="false"/>
 		</div>
 	</h:form>
 
-	<h:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
-		styleClass="tabela" id="pessoaSalarioConsolidadoTable">
+	<p:dataTable value="#{pessoaSalarioConsolidadoMBean.lista}" var="item"
+		id="pessoaSalarioConsolidadoTable" lazy="true" paginator="true"
+		rows="20" paginatorPosition="bottom"
+		currentPageReportTemplate="Página {currentPage} de {totalPages}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,20,50" responsiveLayout="scroll"
+		styleClass="tabela-estilizada"
+		emptyMessage="Nenhum registro encontrado.">
 
-		<h:column>
-			<f:facet name="header">ID</f:facet>
+		<p:column headerText="ID">
             #{item.pessoa.id}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Nome</f:facet>
+		<p:column headerText="Nome">
             #{item.pessoa.nome}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Cargo</f:facet>
+		<p:column headerText="Cargo">
             #{item.cargo.nome}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Salário</f:facet>
+		<p:column headerText="Salario">
 			<span style="color: green;">R$ #{item.salario}</span>
-		</h:column>
+		</p:column>
 
-	</h:dataTable>
-
-<h:panelGroup id="infoUltimoCalculo" layout="block" styleClass="ultimo-calculo-panel">
-    <h3>
-        Data e hora do último cálculo realizado:
-        <strong>
-            <h:outputText
-                value="#{pessoaSalarioConsolidadoMBean.ultimoCalculo.dataCadastro}">
-                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-            </h:outputText>
-        </strong>
-    </h3>
-</h:panelGroup>
+	</p:dataTable>
 
 </h:body>
 </html>
