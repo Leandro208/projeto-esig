@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
 import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
+import io.github.Leandro208.projetoESIG.dto.FormBuscaDTO;
 
 public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 
@@ -56,13 +57,25 @@ public class PessoaSalarioConsolidadoDao extends GenericDAOImpl {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<PessoaSalarioConsolidado> buscarTodos() {
-		String sql = "select * from pessoa_salario_consolidado ps ";
-		sql += "join pessoa p on p.id_pessoa = ps.id_pessoa ";
-		sql += "order by p.nome";
-		Query q = getSession().createNativeQuery(sql, PessoaSalarioConsolidado.class);
-		return q.getResultList();
+	public List<PessoaSalarioConsolidado> filter(FormBuscaDTO form) {
+	    String sql = "select * from pessoa_salario_consolidado ps ";
+	    sql += "join pessoa p on p.id_pessoa = ps.id_pessoa ";
+	    sql += "where 1=1 ";
+	    
+	    if (form.getNome() != null && !form.getNome().isEmpty()) {
+	        sql += "and p.nome ilike '%" + form.getNome() + "%' ";
+	    }
+	    
+	    if (form.getCargo() != null && form.getCargo().getId() > 0) {
+	        sql += "and p.id_cargo = " + form.getCargo().getId();
+	    }
+	    
+	    sql += " order by p.nome";
+	    
+	    Query q = getSession().createNativeQuery(sql, PessoaSalarioConsolidado.class);
+	    return q.getResultList();
 	}
+
 	
 	public PessoaSalarioConsolidado findById(Long id) {
 		try {

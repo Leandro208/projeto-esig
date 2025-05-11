@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import io.github.Leandro208.projetoESIG.dao.PessoaSalarioConsolidadoDao;
 import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
 import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
+import io.github.Leandro208.projetoESIG.dto.FormBuscaDTO;
 import io.github.Leandro208.projetoESIG.dto.RelatorioPessoaSalarioDTO;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -24,9 +25,9 @@ public class PessoaSalarioConsolidadoService {
 		dao.recalcularSalario();
 	}
 
-	public List<PessoaSalarioConsolidado> buscarTodos() {
+	public List<PessoaSalarioConsolidado> consultar(FormBuscaDTO form) {
 		PessoaSalarioConsolidadoDao dao = new PessoaSalarioConsolidadoDao();
-		return dao.buscarTodos();
+		return dao.filter(form);
 	}
 	
 	public void gerarRelatorioSalario(List<RelatorioPessoaSalarioDTO> dados, HttpServletResponse response) throws Exception {

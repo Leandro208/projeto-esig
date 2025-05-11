@@ -17,14 +17,32 @@ public class CargoConverter implements Converter{
 		service = new CargoService();
 	}
 	
-	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		return (Cargo) service.buscarPorId(Long.valueOf(value));
-	}
+	 @Override
+	    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+	        if (value == null || value.trim().isEmpty()) {
+	            return null;
+	        }
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		return ((Cargo) value).getId().toString();
-	}
+	        try {
+	            Long id = Long.valueOf(value);
+	            return service.buscarPorId(id);
+	        } catch (NumberFormatException e) {
+	            return null;
+	        }
+	    }
+
+	    @Override
+	    public String getAsString(FacesContext context, UIComponent component, Object value) {
+	        if (value == null) {
+	            return "";
+	        }
+
+	        if (value instanceof Cargo) {
+	            Cargo cargo = (Cargo) value;
+	            return cargo.getId() != null ? cargo.getId().toString() : "";
+	        }
+
+	        return "";
+	    }
 
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.github.Leandro208.projetoESIG.dominio.HistoricoCalculoSalario;
 import io.github.Leandro208.projetoESIG.dominio.PessoaSalarioConsolidado;
+import io.github.Leandro208.projetoESIG.dto.FormBuscaDTO;
 import io.github.Leandro208.projetoESIG.dto.RelatorioPessoaSalarioDTO;
 import io.github.Leandro208.projetoESIG.service.PessoaSalarioConsolidadoService;
 
@@ -29,24 +30,35 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	
 	private boolean emProcessamento = false;
 	private boolean processado = false;
+	
+	private FormBuscaDTO formBusca;
 
 
 	public PessoaSalarioConsolidadoMBean() {
 		service = new PessoaSalarioConsolidadoService();
+		reset();
+	}
+	
+	private void reset() {
+		formBusca = new FormBuscaDTO();
 		carregarLista();
 		carregarUltimoCalculo();
 	}
-	
 	public String inicio() {
-		carregarLista();
+		reset();
 		return navegar(INICIO);
 	}
 	
 	private void carregarLista() {
-		List<PessoaSalarioConsolidado> dados = service.buscarTodos();
+		List<PessoaSalarioConsolidado> dados = service.consultar(formBusca);
 		lista = dados != null ? dados : new ArrayList<>();
 	}
 
+	public String buscar() {
+		carregarLista();
+		return navegar(INICIO);
+	}
+	
 	public void calcular() {
 		emProcessamento = true;
 		processado = false;
@@ -107,6 +119,15 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	public boolean isProcessado() {
 		return processado;
 	}
+
+	public FormBuscaDTO getFormBusca() {
+		return formBusca;
+	}
+
+	public void setFormBusca(FormBuscaDTO formBusca) {
+		this.formBusca = formBusca;
+	}
+	
 
 
 }

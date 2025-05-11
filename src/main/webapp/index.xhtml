@@ -9,105 +9,138 @@
 	<link rel="stylesheet" href="assets/css/tabela.css" />
 	<link rel="stylesheet" href="assets/css/menu.css" />
 	<style>
-.form-buttons {
-	display: flex;
-	justify-content: center;
-	gap: 15px;
-	margin-bottom: 30px;
-}
+		.form-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 15px;
+			margin-bottom: 30px;
+		}
 
-.form-buttons input {
-	padding: 10px 18px;
-	font-size: 14px;
-	border: none;
-	border-radius: 4px;
-	background-color: #007bff;
-	color: white;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
+		.form-buttons input {
+			padding: 10px 18px;
+			font-size: 14px;
+			border: none;
+			border-radius: 4px;
+			background-color: #007bff;
+			color: white;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-.form-buttons input:hover {
-	background-color: #0056b3;
-}
+		.form-buttons input:hover {
+			background-color: #0056b3;
+		}
 
-.ultimo-calculo-panel {
-	margin-top: 30px;
-	padding: 15px;
-	background-color: #f0f4f8;
-	border: 1px solid #d0dbe5;
-	border-radius: 8px;
-	text-align: center;
-	font-size: 16px;
-	color: #333;
-}
+		.ultimo-calculo-panel {
+			margin-top: 30px;
+			padding: 15px;
+			background-color: #f0f4f8;
+			border: 1px solid #d0dbe5;
+			border-radius: 8px;
+			text-align: center;
+			font-size: 16px;
+			color: #333;
+		}
 
-.ultimo-calculo-panel h3 {
-	margin: 0;
-	font-weight: normal;
-}
+		.ultimo-calculo-panel h3 {
+			margin: 0;
+			font-weight: normal;
+		}
 
-.ultimo-calculo-panel strong {
-	color: #007bff;
-	font-weight: bold;
-	margin-left: 8px;
-}
+		.ultimo-calculo-panel strong {
+			color: #007bff;
+			font-weight: bold;
+			margin-left: 8px;
+		}
 
-.processando-texto {
-	font-weight: bold;
-	color: orange;
-	position: relative;
-	padding-left: 20px;
-}
+		.processando-texto {
+			font-weight: bold;
+			color: orange;
+			position: relative;
+			padding-left: 20px;
+		}
 
-.processando-texto::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 50%;
-	transform: translateY(-50%);
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: orange;
-	animation: pulse 1s infinite;
-}
+		.processando-texto::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background-color: orange;
+			animation: pulse 1s infinite;
+		}
 
-@keyframes pulse {
-	0% {
-		opacity: 1;
-		transform: translateY(-50%) scale(1);
-	}
-	50% {
-		opacity: 0.5;
-		transform: translateY(-50%) scale(1.3);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(-50%) scale(1);
-	}
-}
+		@keyframes pulse {
+			0% {
+				opacity: 1;
+				transform: translateY(-50%) scale(1);
+			}
+			50% {
+				opacity: 0.5;
+				transform: translateY(-50%) scale(1.3);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(-50%) scale(1);
+			}
+		}
 
-.processado-texto {
-	font-weight: bold;
-	color: green;
-}
-.tabela-estilizada {
-    font-size: 14px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+		.processado-texto {
+			font-weight: bold;
+			color: green;
+		}
 
-.ui-datatable .ui-datatable-header {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
+		.tabela-estilizada {
+			font-size: 14px;
+			border-radius: 6px;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
 
-.ui-commandbutton {
-    margin-right: 5px;
-}
+		.ui-datatable .ui-datatable-header {
+			background-color: #f4f4f4;
+			font-weight: bold;
+		}
 
-</style>
+		.ui-commandbutton {
+			margin-right: 5px;
+		}
+
+		.form-busca {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.form-busca input {
+			margin: 5px;
+			padding: 6px;
+			border-radius: 4px;
+			border: 1px solid #ccc;
+		}
+
+		.form-busca button {
+			padding: 6px 12px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 4px;
+		}
+
+		.form-busca button:hover {
+			background-color: #0056b3;
+		}
+		.select {
+			padding: 6px;
+			font-size: 14px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			background-color: #fff;
+			color: #333;
+		}
+		
+	</style>
 </h:head>
 
 <h:body>
@@ -115,15 +148,27 @@
 	<h2>Pessoas e Salários Consolidados</h2>
 	<ui:include src="/menu.xhtml" />
 
+	<h:form id="formBusca" class="form-busca">
+		<h:outputLabel for="nomeBusca" value="Nome: " />
+		<h:inputText id="nomeBusca" value="#{pessoaSalarioConsolidadoMBean.formBusca.nome}" />
+		
+		<h:outputLabel value="Cargo: " />
+		<h:selectOneMenu value="#{pessoaSalarioConsolidadoMBean.formBusca.cargo}"
+			class="select">
+			<f:selectItem itemLabel="--SELECIONE--" itemValue="#{null}" noSelectionOption="true" />
+			<f:selectItems value="#{cargoVencimentoMBean.comboCargos}" />
+			<f:converter converterId="cargoConverter" />
+		</h:selectOneMenu>
+
+		<h:commandButton action="#{pessoaSalarioConsolidadoMBean.buscar}" value="Buscar"/>
+	</h:form>
+
 	<h:form id="formCalculo">
 		<h:panelGroup id="statusMensagem" layout="block"
 			style="text-align:center; margin-bottom: 20px; min-height: 40px;">
-
-
 			<h:outputText value="Processando..."
 				rendered="#{pessoaSalarioConsolidadoMBean.emProcessamento}"
 				styleClass="processando-texto" />
-
 
 			<h:panelGroup rendered="#{pessoaSalarioConsolidadoMBean.processado}">
 				<h:outputText value="Processado com sucesso!"
@@ -143,7 +188,6 @@
 				action="#{pessoaSalarioConsolidadoMBean.calcular}"
 				update="formCalculo" process="@this"
 				rendered="#{!pessoaSalarioConsolidadoMBean.emProcessamento}" />
-
 
 			<p:poll interval="1"
 				update="formCalculo pessoaSalarioConsolidadoTable"

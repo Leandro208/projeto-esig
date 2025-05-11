@@ -17,7 +17,7 @@ public class CargoService {
 		List<Cargo> cargos = dao.findAllCargos();
 		for (Cargo c : cargos) {
 			boolean isSelecionado = cargo != null && cargo.getId() != null && cargo.equals(c);
-			itensComboBoxCargos.add(new SelectItem(c, c.getNome(), null, isSelecionado));
+			itensComboBoxCargos.add(new SelectItem(c, c.getNome(), null, false, false,isSelecionado));
 
 		}
 		return itensComboBoxCargos;

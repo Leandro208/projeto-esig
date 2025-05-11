@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import io.github.Leandro208.projetoESIG.dominio.Pessoa;
+import io.github.Leandro208.projetoESIG.dto.FormBuscaDTO;
 import io.github.Leandro208.projetoESIG.negocio.ListaComando;
 import io.github.Leandro208.projetoESIG.negocio.Movimento;
 import io.github.Leandro208.projetoESIG.negocio.MovimentoCadastro;
@@ -24,6 +25,8 @@ public class PessoaMBean extends AbstractMBean {
 	private Pessoa pessoa;
 	
 	private List<Pessoa> resultados;
+	
+	private FormBuscaDTO formBusca;
 
 	public PessoaMBean() {
 		reset();
@@ -32,6 +35,7 @@ public class PessoaMBean extends AbstractMBean {
 	private void reset() {
 		resultados = new ArrayList<Pessoa>();
 		pessoa = new Pessoa();
+		formBusca = new FormBuscaDTO();
 	}
 
 	public String entrarCadastro() {
@@ -91,7 +95,7 @@ public class PessoaMBean extends AbstractMBean {
 
 	private void carregarResultados() {
 		PessoaService service = new PessoaService();
-		resultados = service.buscarTodos();
+		resultados = service.consultar(formBusca);
 	}
 	public List<Pessoa> getResultados() {
 		return resultados;
@@ -105,4 +109,14 @@ public class PessoaMBean extends AbstractMBean {
 		this.pessoa = pessoa;
 	}
 
+	public FormBuscaDTO getFormBusca() {
+		return formBusca;
+	}
+
+	public void setFormBusca(FormBuscaDTO formBusca) {
+		this.formBusca = formBusca;
+	}
+	
+
+	
 }

@@ -8,7 +8,57 @@
 	<title>Visualizar Pessoas</title>
 	<link rel="stylesheet" href="assets/css/tabela.css" />
 	<link rel="stylesheet" href="assets/css/menu.css" />
-	<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+	<style>
+.tabela-estilizada {
+	font-size: 14px;
+	border-radius: 6px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ui-datatable .ui-datatable-header {
+	background-color: #f4f4f4;
+	font-weight: bold;
+}
+
+.ui-commandbutton {
+	margin-right: 5px;
+}
+
+.form-busca {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.form-busca input {
+	margin: 5px;
+	padding: 6px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+}
+
+.form-busca button {
+	padding: 6px 12px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+}
+
+.form-busca button:hover {
+	background-color: #0056b3;
+}
+
+.select {
+	padding: 6px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background-color: #fff;
+	color: #333;
+}
+</style>
 </h:head>
 
 <h:body>
@@ -16,63 +66,88 @@
 	<h2>Gerenciar Pessoas</h2>
 	<ui:include src="/menu.xhtml" />
 
-	<h:dataTable value="#{pessoaMBean.resultados}" var="item"
-		styleClass="tabela" id="pessoaSalarioConsolidadoTable">
+	<h:form id="formBusca" class="form-busca">
+		<h:outputLabel for="nomeBusca" value="Nome: " />
+		<h:inputText id="nomeBusca"
+			value="#{pessoaMBean.formBusca.nome}" />
 
-		<h:column>
-			<f:facet name="header">ID</f:facet>
+		<h:outputLabel value="Cargo: " />
+		<h:selectOneMenu
+			value="#{pessoaMBean.formBusca.cargo}"
+			class="select">
+			<f:selectItem itemLabel="--SELECIONE--" itemValue="#{null}"
+				noSelectionOption="true" />
+			<f:selectItems value="#{cargoVencimentoMBean.comboCargos}" />
+			<f:converter converterId="cargoConverter" />
+		</h:selectOneMenu>
+
+		<h:commandButton action="#{pessoaMBean.entrarListagemPessoas}"
+			value="Buscar" />
+	</h:form>
+
+	<p:dataTable value="#{pessoaMBean.resultados}" var="item"
+		id="pessoaSalarioConsolidadoTable" lazy="true" paginator="true"
+		rows="20" paginatorPosition="bottom"
+		currentPageReportTemplate="Página {currentPage} de {totalPages}"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,20,50" responsiveLayout="scroll"
+		styleClass="tabela-estilizada"
+		emptyMessage="Nenhum registro encontrado.">
+
+		<p:column headerText="ID">
             #{item.id}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Nome</f:facet>
+		<p:column headerText="Nome">
             #{item.nome}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Cargo</f:facet>
+		<p:column headerText="Cargo">
             #{item.cargo.nome}
-        </h:column>
+        </p:column>
 
-		<h:column>
-			<f:facet name="header">Email</f:facet>
+		<p:column headerText="Email">
             #{item.email}
-        </h:column>
-		<h:column>
-			<f:facet name="header">Data de Nascimento</f:facet>
+        </p:column>
+		<p:column headerText="Data de Nascimento">
 			<h:outputText value="#{item.dataNascimento}">
 				<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"
 					timeZone="GMT-3" />
 			</h:outputText>
-		</h:column>
+		</p:column>
 
-		<h:column>
-    <f:facet name="header">Ações</f:facet>
-    <h:panelGroup layout="block" style="display: flex; gap: 8px;">
-        <h:form style="display: inline;">
-            <h:commandLink action="#{pessoaMBean.verDetalhes}" title="Ver detalhes">
-                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
-                <i class="pi pi-search" style="font-size: 1.0em;"></i>
-            </h:commandLink>
-        </h:form>
+		<p:column headerText="Ações">
+			<h:panelGroup layout="block" style="display: flex; gap: 8px;">
+				<h:form style="display: inline;">
+					<h:commandLink action="#{pessoaMBean.verDetalhes}"
+						title="Ver detalhes">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pessoaMBean.pessoa}" />
+						<i class="pi pi-search" style="font-size: 1.0em;"></i>
+					</h:commandLink>
+				</h:form>
 
-        <h:form style="display: inline;">
-            <h:commandLink action="#{pessoaMBean.entrarEdicao}" title="Editar pessoa">
-                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
-                <i class="pi pi-pencil" style="font-size: 1.0em;"></i>
-            </h:commandLink>
-        </h:form>
+				<h:form style="display: inline;">
+					<h:commandLink action="#{pessoaMBean.entrarEdicao}"
+						title="Editar pessoa">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pessoaMBean.pessoa}" />
+						<i class="pi pi-pencil" style="font-size: 1.0em;"></i>
+					</h:commandLink>
+				</h:form>
 
-        <h:form style="display: inline;">
-            <h:commandLink action="#{pessoaMBean.remover}" title="Remover pessoa" 
-                           onclick="return confirm('Tem certeza que deseja remover?');">
-                <f:setPropertyActionListener value="#{item}" target="#{pessoaMBean.pessoa}" />
-                <i class="pi pi-trash" style="font-size: 1.0em; color: red;"></i>
-            </h:commandLink>
-        </h:form>
-    </h:panelGroup>
-</h:column>
+				<h:form style="display: inline;">
+					<h:commandLink action="#{pessoaMBean.remover}"
+						title="Remover pessoa"
+						onclick="return confirm('Tem certeza que deseja remover?');">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{pessoaMBean.pessoa}" />
+						<i class="pi pi-trash" style="font-size: 1.0em; color: red;"></i>
+					</h:commandLink>
+				</h:form>
+			</h:panelGroup>
+		</p:column>
 
-	</h:dataTable>
+	</p:dataTable>
 </h:body>
 </html>
