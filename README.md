@@ -88,8 +88,9 @@ Antes de executar o projeto, certifique-se de que os seguintes softwares estejam
 
    Abra o navegador e vá para:
 
-   ```
-   http://http://localhost:8080/projetoESIG
+     ```
+   http://localhost:8080/projetoESIG
+   ``` 
 
 
 
