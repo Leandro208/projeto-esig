@@ -103,7 +103,7 @@ Antes de executar o projeto, certifique-se de que os seguintes softwares estejam
 * Hibernate
 * PostgreSQL
 * Apache Maven
-* Apache Tomcat([GitHub][2], [GitHub][1])
+* Apache Tomcat
 
 ---
 
