@@ -4,11 +4,12 @@ import io.github.Leandro208.projetoESIG.dao.DAOException;
 import io.github.Leandro208.projetoESIG.dao.GenericDAO;
 import io.github.Leandro208.projetoESIG.dao.GenericDAOImpl;
 import io.github.Leandro208.projetoESIG.dominio.Base;
+import io.github.Leandro208.projetoESIG.exception.NegocioException;
 
 public class ProcessadorCadastro implements ProcessadorComando{
 
 	@Override
-	public void execute(Movimento movimento) {
+	public void execute(Movimento movimento) throws NegocioException {
 		validate(movimento);
 		if(movimento.getComando().equals(ListaComando.CADASTRAR)) {
 			criar(movimento);

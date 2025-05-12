@@ -7,8 +7,10 @@
 
 <h:head>
 	<title>Detalhes da Pessoa</title>
-	<link rel="stylesheet" href="assets/css/menu.css" />
-	<link rel="stylesheet" href="assets/css/tabela.css" />
+	<link rel="stylesheet" href="../assets/css/menu.css" />
+	<link rel="stylesheet" href="../assets/css/tabela.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
 	<style>
 		.container {
 			max-width: 700px;
@@ -53,7 +55,7 @@
 
 <h:body>
 	<h2>Detalhes da Pessoa</h2>
-	<ui:include src="/menu.xhtml" />
+	<ui:include src="../templates/menu.xhtml" />
 
 	<div class="container">
 
@@ -124,8 +126,8 @@
 		
 		
 		<div class="actions">
-			<p:button value="Voltar" outcome="/listar_pessoas.xhtml" styleClass="ui-button-secondary" />
-			<p:button value="Editar" outcome="/listar_pessoas.xhtml">
+			<p:button value="Voltar" outcome="listar_pessoas.xhtml" styleClass="ui-button-secondary" />
+			<p:button value="Editar" outcome="/form_pessoa.xhtml">
 				<f:param name="id" value="#{pessoaMBean.pessoa.id}" />
 			</p:button>
 		</div>

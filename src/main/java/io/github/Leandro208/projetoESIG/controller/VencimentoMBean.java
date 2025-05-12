@@ -18,7 +18,7 @@ import io.github.Leandro208.projetoESIG.negocio.MovimentoCadastro;
 public class VencimentoMBean extends AbstractMBean {
 
 	private Vencimento vencimento;
-	private final String FORM_VENCIMENTO = "form_vencimento";
+	private final String FORM_VENCIMENTO = "/restricted/form_vencimento";
 
 	public VencimentoMBean() {
 		reset();

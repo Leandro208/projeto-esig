@@ -12,5 +12,9 @@ public class PessoaService {
 		PessoaDao dao = new PessoaDao();
 		return dao.filter(form);
 	}
+	
+	public List<Pessoa> buscarTodos(){
+		return consultar(new FormBuscaDTO());
+	}
 
 }

@@ -26,7 +26,7 @@ public class PessoaSalarioConsolidadoMBean extends AbstractMBean {
 	
 	private List<PessoaSalarioConsolidado> lista;
 	
-	private final String INICIO = "index";
+	private final String INICIO = "/restricted/home";
 	
 	private boolean emProcessamento = false;
 	private boolean processado = false;

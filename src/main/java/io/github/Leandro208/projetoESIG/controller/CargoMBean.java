@@ -13,7 +13,7 @@ import io.github.Leandro208.projetoESIG.negocio.MovimentoCadastro;
 public class CargoMBean extends AbstractMBean{
 
 	private Cargo cargo;
-	private final String FORM_CARGO = "form_cargo"; 
+	private final String FORM_CARGO = "/restricted/form_cargo"; 
 	public CargoMBean() {
 		reset();
 	}

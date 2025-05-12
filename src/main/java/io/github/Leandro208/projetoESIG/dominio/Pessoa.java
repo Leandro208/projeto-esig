@@ -49,11 +49,13 @@ public class Pessoa implements Base, Serializable {
 	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
 	
+	private String senha;
+	
 	public Pessoa() {
 	}
 
 	public Pessoa(Long id, String nome, String cidade, String email, String cep, String endereco, String pais,
-			String usuario, String telefone, Date dataNascimento) {
+			String usuario, String telefone, Date dataNascimento, Cargo cargo, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.cidade = cidade;
@@ -64,7 +66,11 @@ public class Pessoa implements Base, Serializable {
 		this.usuario = usuario;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
+		this.cargo = cargo;
+		this.senha = senha;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -156,6 +162,14 @@ public class Pessoa implements Base, Serializable {
 
 	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public static long getSerialversionuid() {

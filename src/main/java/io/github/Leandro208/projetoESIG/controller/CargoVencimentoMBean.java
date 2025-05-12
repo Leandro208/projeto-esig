@@ -18,7 +18,7 @@ import io.github.Leandro208.projetoESIG.service.VencimentoService;
 public class CargoVencimentoMBean extends AbstractMBean {
 
 	private CargoVencimento cargoVencimento;
-	private final String FORM_CARGO_VENCIMENTO = "form_cargo_vencimento";
+	private final String FORM_CARGO_VENCIMENTO = "/restricted/form_cargo_vencimento";
 	public CargoVencimentoMBean() {
 		reset();
 	}

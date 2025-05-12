@@ -3,6 +3,7 @@ package io.github.Leandro208.projetoESIG.controller;
 import javax.faces.context.FacesContext;
 
 import io.github.Leandro208.projetoESIG.negocio.ProcessadorComando;
+import io.github.Leandro208.projetoESIG.dominio.Pessoa;
 import io.github.Leandro208.projetoESIG.negocio.Movimento;
 import io.github.Leandro208.projetoESIG.util.Message;
 
@@ -58,7 +59,7 @@ public abstract class AbstractMBean {
 	}
 	
 	public String cancelar() {
-		return navegar("index");
+		return navegar("/restricted/home");
 	}
 
 	public String navegar(String caminho) {
@@ -66,5 +67,14 @@ public abstract class AbstractMBean {
 			caminho = caminho.substring(0, caminho.lastIndexOf("."));
 		}
 		return caminho + "?faces-redirect=true";
+	}
+	
+	public Pessoa getLogado() {
+		return (Pessoa) FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap().get("usuario");
+	}
+	
+	public boolean isLogado() {
+		return getLogado() != null;
 	}
 }

@@ -6,8 +6,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Salários Consolidados</title>
-	<link rel="stylesheet" href="assets/css/tabela.css" />
-	<link rel="stylesheet" href="assets/css/menu.css" />
+	<link rel="stylesheet" href="../assets/css/tabela.css" />
+	<link rel="stylesheet" href="../assets/css/menu.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
 	<style>
 		.form-buttons {
 			display: flex;
@@ -146,7 +148,7 @@
 <h:body>
 
 	<h2>Pessoas e Salários Consolidados</h2>
-	<ui:include src="/menu.xhtml" />
+	<ui:include src="../templates/menu.xhtml" />
 
 	<h:form id="formBusca" class="form-busca">
 		<h:outputLabel for="nomeBusca" value="Nome: " />
