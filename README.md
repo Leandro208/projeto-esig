@@ -98,7 +98,7 @@ Antes de executar o projeto, certifique-se de que os seguintes softwares estejam
 
 ## 🛠️ Tecnologias Utilizadas
 
-* Java 11
+* Java 8
 * JavaServer Faces (JSF)
 * Hibernate
 * PostgreSQL
