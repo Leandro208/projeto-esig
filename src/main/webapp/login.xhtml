@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Login</title>
+	<style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            width: 350px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .login-container h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login-button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+        .messages {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .login-button-link {
+        margin-top: 10px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.login-button-link:hover {
+    background-color: #0056b3;
+}
+        
+    </style>
+</h:head>
+
+<h:body>
+
+    <div class="login-container">
+        <h2>Login no Sistema</h2>
+
+        <h:form>
+            <h:messages globalOnly="true" layout="list" styleClass="messages" />
+
+            <label for="login" class="form-label">Usuário:</label>
+            <h:inputText id="login" value="#{loginMBean.login}" required="true" styleClass="form-input" requiredMessage="Digite o Login" />
+
+            <label for="senha" class="form-label">Senha:</label>
+            <h:inputSecret id="senha" value="#{loginMBean.senha}" required="true" styleClass="form-input" requiredMessage="Digite a senha"/>
+
+            <h:commandButton value="Entrar" action="#{loginMBean.logar}" styleClass="login-button" />
+           	<h:outputLink value="form_pessoa.jsf" styleClass="login-button-link">
+			    Registrar
+		   	</h:outputLink>
+
+        </h:form>
+    </div>
+
+</h:body>
+</html>

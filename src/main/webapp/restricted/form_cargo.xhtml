@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Cadastro de Cargo</title>
+	<link rel="stylesheet" href="../assets/css/form.css" />
+	<link rel="stylesheet" href="../assets/css/tabela.css" />
+	<link rel="stylesheet" href="../assets/css/menu.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+</h:head>
+<h:body>
+	<h2>Cadastro de Cargo</h2>
+	<ui:include src="../templates/menu.xhtml" />
+	<div class="container">
+		<h:form>
+			<p:messages id="messages" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
+
+			<div class="form-group">
+				<label for="nome">Nome</label>
+				<h:inputText value="#{cargoMBean.cargo.nome}" />
+			</div>
+
+			<h:panelGrid columns="2">
+				<h:commandButton value="Salvar" action="#{cargoMBean.salvar}"
+					styleClass="button" />
+				<h:commandButton value="Cancelar" action="#{cargoMBean.cancelar}"
+					styleClass="button" />
+			</h:panelGrid>
+
+		</h:form>
+	</div>
+</h:body>
+</html>
